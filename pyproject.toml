@@ -1,0 +1,57 @@
+[project]
+name = "t2r2"
+version = "0.1.0"
+description = "Trade ledger droid: records every Trading212 order and fill, and who placed it"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+dependencies = [
+    "httpx>=0.27",
+    "python-dotenv>=1.0",
+]
+
+[project.scripts]
+t2r2 = "t2r2.cli:main"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.10",
+    "pip-audit>=2.9",
+    "pre-commit>=3.7",
+    "pytest>=8",
+    "ruff>=0.4",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/t2r2"]
+
+[tool.uv]
+# Supply-chain cooldown: ignore package versions published in the last 7 days
+exclude-newer = "7 days"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.bandit]
+exclude_dirs = [".venv"]
+
+[tool.bandit.assert_used]
+skips = ["*/tests/*", "*/test_*.py"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+files = ["src", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
