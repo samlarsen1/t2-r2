@@ -54,7 +54,7 @@ Trading212 order history ───┘                     source of truth
    | `AUTOINVEST`, `SYSTEM` | — | `automatic` | 0 |
    | anything else (app, website) | — | `manual` | 0 |
 
-   Inferred sources cover orders placed before `t2-d2` recorded order ids (its 0.3.0).
+   Inferred sources cover orders placed before `t2-d2` recorded order ids in its run reports.
 
 Every write is an upsert by Trading212 order id or run id, so re-running, or replaying all
 history with `--full`, never duplicates anything. The raw history item is kept with each order,
