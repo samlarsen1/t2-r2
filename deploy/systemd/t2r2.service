@@ -1,0 +1,13 @@
+# Installed by t2-hq's bin/t2-deploy, which replaces @APP_DIR@ with the deployed app directory.
+[Unit]
+Description=T2-R2 trade ledger ingest
+Wants=network-online.target
+After=network-online.target time-sync.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=@APP_DIR@
+ExecStart=@APP_DIR@/.venv/bin/t2r2 ingest
+# Exit code 3 means skipped (a lock is held), which is not a failure.
+SuccessExitStatus=3
+TimeoutStartSec=30min

@@ -1,0 +1,12 @@
+# Installed by t2-hq's bin/t2-deploy.
+[Unit]
+Description=T2-R2 trade ledger ingest (daily 23:15 UK, after the US close)
+
+[Timer]
+OnCalendar=*-*-* 23:15 Europe/London
+AccuracySec=1min
+# Ingest isn't time-sensitive: a run missed while the machine was off runs at the next start.
+Persistent=true
+
+[Install]
+WantedBy=timers.target
